@@ -1,24 +1,23 @@
 class CodeZeroTwoTwo
-
   def getdata
     @data = File.open('day02-source').read
     @data = @data.split(',')
-    @data.map! { |x| x.to_i }
+    @data.map!(&:to_i)
   end
 
   def verify(i)
     case @data[i]
     when 1
       caseone(i)
-      return false
+      false
     when 2
       casetwo(i)
-      return false
+      false
     when 99
-      return true
+      true
     else
-      p "Something wrong is not right!!!"
-      return true
+      p 'Something wrong is not right!!!'
+      true
     end
   end
 
@@ -31,7 +30,7 @@ class CodeZeroTwoTwo
       endgame = verify(i)
       i += 4
     end
-    return @data[0]
+    @data[0]
   end
 
   def caseone(i)
@@ -46,16 +45,15 @@ class CodeZeroTwoTwo
     @data[1] = a
     @data[2] = b
   end
-
 end
 
 a = 1
 b = 1
 
 number = CodeZeroTwoTwo.new
-while number.gamerun(a, b) != 19690720 do
+while number.gamerun(a, b) != 19_690_720
   # p "a = #{a} - b = #{b}"
-  if b < 100 then
+  if b < 100
     b += 1
   else
     a += 1

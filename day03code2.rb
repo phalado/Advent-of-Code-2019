@@ -6,7 +6,7 @@ class Node
     @xf = xf
     @y0 = y0
     @yf = yf
-    nextbranch = nil;
+    nextbranch = nil
   end
 end
 
@@ -18,9 +18,9 @@ class SearchTree
   end
 
   def newbranch(node, x0, xf, y0, yf)
-    if node.nil? then
-      return node = Node.new(x0, xf, y0, yf)
-    elsif node.nextbranch.nil? then
+    if node.nil?
+      node = Node.new(x0, xf, y0, yf)
+    elsif node.nextbranch.nil?
       node.nextbranch = newbranch(node.nextbranch, x0, xf, y0, yf)
     else
       newbranch(node.nextbranch, x0, xf, y0, yf)
@@ -30,7 +30,7 @@ class SearchTree
   def search(node, x, y)
     return false if node.nil?
 
-    if x.between?(node.x0, node.xf) and y.between?(node.y0, node.yf)
+    if x.between?(node.x0, node.xf) && y.between?(node.y0, node.yf)
       return true
     else
       search(node.nextbranch, x, y)
@@ -38,8 +38,8 @@ class SearchTree
   end
 
   def countsearch(node, x, y, steps)
-    if x.between?(node.x0, node.xf) and y.between?(node.y0, node.yf)
-      return steps + (x.abs - node.x0.abs) + (y.abs - node.y0.abs)
+    if x.between?(node.x0, node.xf) && y.between?(node.y0, node.yf)
+      steps + (x.abs - node.x0.abs) + (y.abs - node.y0.abs)
     else
       countsearch(node.nextbranch, x, y, steps + (node.xf - node.x0).abs + (node.yf - node.y0).abs)
     end
@@ -47,7 +47,6 @@ class SearchTree
 end
 
 class CodeZeroThreeTwo
-
   def initialize
     @tree = SearchTree.new
     @inter = []
@@ -61,12 +60,12 @@ class CodeZeroThreeTwo
     data = File.open('day03-source').read
     # data = File.open('test').read
     data = data.split("\n")
-    @wire1 = data[0].split(",")
-    @wire2 = data[1].split(",")
+    @wire1 = data[0].split(',')
+    @wire2 = data[1].split(',')
   end
 
   def hwalking(direction, distance)
-    if direction == "R" then
+    if direction == 'R'
       @tree.newbranch(@tree.root, @x, @x + distance, @y, @y)
       @x += distance
     else
@@ -76,7 +75,7 @@ class CodeZeroThreeTwo
   end
 
   def vwalking(direction, distance)
-    if direction == "U" then
+    if direction == 'U'
       @tree.newbranch(@tree.root, @x, @x, @y, @y + distance)
       @y += distance
     else
@@ -87,7 +86,7 @@ class CodeZeroThreeTwo
 
   def firstwireway
     @wire1.each do |i|
-      if i[0] == "R" or i[0] == "L" then
+      if (i[0] == 'R') || (i[0] == 'L')
         hwalking(i[0], i[1..-1].to_i)
       else
         vwalking(i[0], i[1..-1].to_i)
@@ -101,25 +100,25 @@ class CodeZeroThreeTwo
     steps = 0
     @wire2.each do |i|
       case i[0]
-      when "R"
+      when 'R'
         (0...i[1..-1].to_i).each do
           x2 += 1
           steps += 1
           @inter << steps + countsteps(x2, y2) if @tree.search(@tree.root, x2, y2)
         end
-      when "L"
+      when 'L'
         (0...i[1..-1].to_i).each do
           x2 -= 1
           steps += 1
           @inter << steps + countsteps(x2, y2) if @tree.search(@tree.root, x2, y2)
         end
-      when "U"
+      when 'U'
         (0...i[1..-1].to_i).each do
           y2 += 1
           steps += 1
           @inter << steps + countsteps(x2, y2) if @tree.search(@tree.root, x2, y2)
         end
-      when "D"
+      when 'D'
         (0...i[1..-1].to_i).each do
           y2 -= 1
           steps += 1
@@ -127,7 +126,7 @@ class CodeZeroThreeTwo
         end
       end
     end
-    return @inter.min
+    @inter.min
   end
 
   def countsteps(x2, y2)
@@ -136,34 +135,33 @@ class CodeZeroThreeTwo
     steps = 0
     @wire1.each do |i|
       case i[0]
-      when "R"
+      when 'R'
         (0...i[1..-1].to_i).each do
           x += 1
           steps += 1
-          return steps if x == x2 and y == y2
+          return steps if (x == x2) && (y == y2)
         end
-      when "L"
+      when 'L'
         (0...i[1..-1].to_i).each do
           x -= 1
           steps += 1
-          return steps if x == x2 and y == y2
+          return steps if (x == x2) && (y == y2)
         end
-      when "U"
+      when 'U'
         (0...i[1..-1].to_i).each do
           y += 1
           steps += 1
-          return steps if x == x2 and y == y2
+          return steps if (x == x2) && (y == y2)
         end
-      when "D"
+      when 'D'
         (0...i[1..-1].to_i).each do
           y -= 1
           steps += 1
-          return steps if x == x2 and y == y2
+          return steps if (x == x2) && (y == y2)
         end
       end
     end
   end
-
 end
 
 n = CodeZeroThreeTwo.new

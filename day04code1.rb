@@ -1,5 +1,4 @@
 class CodeZeroFourOne
-
   def initialize
     @count = 0
     getdata
@@ -13,16 +12,16 @@ class CodeZeroFourOne
   end
 
   def double
-    s = @limit0.to_s.split("")
-    for i in (1...s.length)
+    s = @limit0.to_s.split('')
+    (1...s.length).each do |i|
       return true if s[i] == s[i - 1]
     end
     false
   end
 
   def increase
-    s = @limit0.to_s.split("")
-    for i in (1...s.length)
+    s = @limit0.to_s.split('')
+    (1...s.length).each do |i|
       return false if s[i] < s[i - 1]
     end
     true
@@ -30,12 +29,11 @@ class CodeZeroFourOne
 
   def verify
     while @limit0 <= @limitf
-      @count += 1 if double and increase
+      @count += 1 if double && increase
       @limit0 += 1
     end
-    return @count
+    @count
   end
-
 end
 
 n = CodeZeroFourOne.new

@@ -5,17 +5,17 @@ class Node
     @center = center
     @orbit = orbit
     @norbit = norbit
-    nextbranch = nil;
+    nextbranch = nil
   end
 end
 
 class CodeZeroSixTwo
   def initialize
-    @root = Node.new("None", "COM", 0)
+    @root = Node.new('None', 'COM', 0)
     @orbits = 0
     getdata
     @solarsystem = []
-    gamerun("COM", @orbits)
+    gamerun('COM', @orbits)
     # p printbranch(@root, 0)
     orbitjump
   end
@@ -23,7 +23,7 @@ class CodeZeroSixTwo
   def newbranch(node, center, orbit, norbit)
     # p node
     if node.nil?
-      return node = Node.new(center, orbit, norbit)
+      node = Node.new(center, orbit, norbit)
     elsif node.nextbranch.nil?
       node.nextbranch = newbranch(node.nextbranch, center, orbit, norbit)
     else
@@ -35,12 +35,12 @@ class CodeZeroSixTwo
     p "#{node.center} #{node.orbit} #{node.norbit}"
     total += node.norbit
     total = printbranch(node.nextbranch, total) unless node.nextbranch.nil?
-    return total
+    total
   end
 
   def find(node, y)
     if node.orbit == y
-      return node.center
+      node.center
     else
       find(node.nextbranch, y) unless node.nextbranch.nil?
     end
@@ -49,10 +49,10 @@ class CodeZeroSixTwo
   def orbitjump
     you = []
     san = []
-    you << find(@root, "YOU")
-    san << find(@root, "SAN")
-    you << find(@root, you[-1]) while you[-1] != "COM"
-    san << find(@root, san[-1]) while san[-1] != "COM"
+    you << find(@root, 'YOU')
+    san << find(@root, 'SAN')
+    you << find(@root, you[-1]) while you[-1] != 'COM'
+    san << find(@root, san[-1]) while san[-1] != 'COM'
     p (you + san - (you & san)).length
   end
 
@@ -61,8 +61,8 @@ class CodeZeroSixTwo
     # @data = File.open('test').read
     @data = @data.split("\n")
     @data.sort!
-    for i in (0...@data.length)
-      @data[i] = @data[i].split(")")
+    (0...@data.length).each do |i|
+      @data[i] = @data[i].split(')')
     end
   end
 
@@ -77,7 +77,7 @@ class CodeZeroSixTwo
         i += 1
       end
     end
-    return sch
+    sch
   end
 
   def gamerun(center, orbits)

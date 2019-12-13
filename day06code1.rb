@@ -5,22 +5,22 @@ class Node
     @center = center
     @orbit = orbit
     @norbit = norbit
-    nextbranch = nil;
+    nextbranch = nil
   end
 end
 
 class CodeZeroSixOne
   def initialize
-    @root = Node.new("None", "COM", 0)
+    @root = Node.new('None', 'COM', 0)
     getdata
-    gamerun("COM", 0)
+    gamerun('COM', 0)
     p printbranch(@root, 0)
   end
 
   def newbranch(node, center, orbit, norbit)
     # p node
     if node.nil?
-      return node = Node.new(center, orbit, norbit)
+      node = Node.new(center, orbit, norbit)
     elsif node.nextbranch.nil?
       node.nextbranch = newbranch(node.nextbranch, center, orbit, norbit)
     else
@@ -29,10 +29,10 @@ class CodeZeroSixOne
   end
 
   def printbranch(node, total)
-    p "#{node.center} #{node.orbit} #{node.norbit}"
+    # p "#{node.center} #{node.orbit} #{node.norbit}"
     total += node.norbit
     total = printbranch(node.nextbranch, total) unless node.nextbranch.nil?
-    return total
+    total
   end
 
   def getdata
@@ -40,8 +40,8 @@ class CodeZeroSixOne
     # @data = File.open('test').read
     @data = @data.split("\n")
     @data.sort!
-    for i in (0...@data.length)
-      @data[i] = @data[i].split(")")
+    (0...@data.length).each do |i|
+      @data[i] = @data[i].split(')')
     end
   end
 
@@ -56,7 +56,7 @@ class CodeZeroSixOne
         i += 1
       end
     end
-    return sch
+    sch
   end
 
   def gamerun(center, orbits)
